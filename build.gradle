@@ -36,8 +36,8 @@ tasks.withType(JavaCompile)
 // Basic info for what we're compiling against and how we're doing it, I think?
 minecraft
 {
-    version = "1.12.2-14.23.5.2768"
-    mappings = "snapshot_20180814"
+    version = "1.12.2-14.23.5.2809"
+    mappings = "stable_39"
     //useDepAts = true
     makeObfSourceJar = false
 }
@@ -49,16 +49,21 @@ repositories {
         name = 'sponge'
         url = 'https://repo.spongepowered.org/maven'
     }
+    ivy {
+        url "http://download.nodecdn.net/containers/reforged/server/release"
+        layout "pattern", {
+            artifact "[organisation]/[revision]/[artifact].[ext]"
+        }
+    }
 }
 
 // Allows Sponge and Pixelmon stuff to load up correctly.
 dependencies
 {
-    // Grab and include Sponge.
-    compile 'org.spongepowered:spongeapi:7.1.0'
+    // Grab Sponge.
+    provided 'org.spongepowered:spongeapi:7.1.0'
+    deobfProvided ':Pixelmon-1.12.2-7.0.5-server:7.0.5'
 
-    // Automatically grabs libraries from the libs folder and adds them to the project. Thanks, CraftSteamG!
-    compileOnly fileTree(dir: 'libs', include: ['*.jar'])
 }
 
 // Taken from the internet, with some slight edits. vvv
